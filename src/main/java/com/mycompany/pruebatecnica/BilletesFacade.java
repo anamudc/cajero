@@ -5,7 +5,6 @@
  */
 package com.mycompany.pruebatecnica;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -30,39 +29,45 @@ public class BilletesFacade extends AbstractFacade<Billetes> {
         super(Billetes.class);
     }
 
-    public void registroBilletes(Billetes billetes, BigInteger cantidad) {
-        billetes.setCantidad(billetes.getCantidad().add(cantidad));
+    public void registroBilletes(Billetes billetes, int cantidad) {
+        billetes.setCantidad(billetes.getCantidad() + cantidad);
         edit(billetes);
     }
 
-    public ArrayList<Billetes> retirar(BigInteger valor) {
+    public ArrayList<Billetes> retirar(int valor) {
         ArrayList<Billetes> inventario = (ArrayList) findAll();
         ArrayList<Billetes> retiro = new ArrayList();
-        BigInteger cantidad;
-        BigInteger resto = valor;
-        BigInteger faltante;
+        int cantidad;
+        int resto = valor;
+        int faltante;
 
         for (Billetes b : inventario) {
-            if (resto.compareTo(b.getDenominacion()) == 1) {
+            if (resto >= b.getDenominacion()) {
                 Billetes billetes = new Billetes();
-                cantidad = valor.divide(b.getDenominacion());
-                resto = valor.mod(b.getDenominacion());
+                cantidad = resto / b.getDenominacion();
+                resto = resto % b.getDenominacion();
                 billetes.setDenominacion(b.getDenominacion());
                 faltante = disminuir(b.getDenominacion(), cantidad, b.getCantidad());
-                billetes.setCantidad(cantidad.subtract(faltante));
+                billetes.setCantidad(cantidad - faltante);
                 retiro.add(billetes);
-                b.setCantidad(b.getCantidad().subtract(billetes.getCantidad()));
-                resto.add(faltante.multiply(b.getDenominacion()));
+                b.setCantidad(b.getCantidad() - billetes.getCantidad());
+                resto += faltante * b.getDenominacion();
+                editar(b);
             }
         }
         return retiro;
     }
+    
+    public String editar(Billetes b){
+        edit(b);
+        return "editar";
+    }
 
     //retorna el valor que haria falta para completar la cantidad solicitada
-    public BigInteger disminuir(BigInteger denominacion, BigInteger cantidad,BigInteger bdCantidad) {
-        if (cantidad.compareTo(bdCantidad)==1){
-            return cantidad.subtract(bdCantidad);
+    public int disminuir(int denominacion, int cantidad, int bdCantidad) {
+        if (cantidad > bdCantidad) {
+            return cantidad - bdCantidad;
         }
-        return new BigInteger("0");
+        return 0;
     }
 }

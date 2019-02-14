@@ -6,7 +6,6 @@
 package com.mycompany.pruebatecnica;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,11 +41,11 @@ public class Billetes implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "denominacion")
-    private BigInteger denominacion;
+    private int denominacion;
     @Basic(optional = false)
     @NotNull
     @Column(name = "cantidad")
-    private BigInteger cantidad;
+    private int cantidad;
 
     public Billetes() {
     }
@@ -55,7 +54,7 @@ public class Billetes implements Serializable {
         this.id = id;
     }
 
-    public Billetes(Integer id, BigInteger denominacion, BigInteger cantidad) {
+    public Billetes(Integer id, int denominacion, int cantidad) {
         this.id = id;
         this.denominacion = denominacion;
         this.cantidad = cantidad;
@@ -69,19 +68,19 @@ public class Billetes implements Serializable {
         this.id = id;
     }
 
-    public BigInteger getDenominacion() {
+    public int getDenominacion() {
         return denominacion;
     }
 
-    public void setDenominacion(BigInteger denominacion) {
+    public void setDenominacion(int denominacion) {
         this.denominacion = denominacion;
     }
 
-    public BigInteger getCantidad() {
+    public int getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(BigInteger cantidad) {
+    public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 
@@ -99,8 +98,7 @@ public class Billetes implements Serializable {
             return false;
         }
         Billetes other = (Billetes) object;
-        return !((this.cantidad == null && other.cantidad != null) || (this.cantidad != null && !this.cantidad.equals(other.cantidad))
-                && (this.denominacion == null && other.denominacion != null) || (this.denominacion != null && !this.denominacion.equals(other.denominacion)));
+        return !(this.cantidad!=other.cantidad || this.denominacion != other.denominacion);
     }
 
     @Override

@@ -5,7 +5,6 @@
  */
 package com.mycompany.pruebatecnica;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -18,6 +17,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.spy;
 
@@ -52,7 +52,7 @@ public class BilletesFacadeTest {
     public void testRegistroBilletes() throws Exception {
         System.out.println("registroBilletes");
         Billetes billetes = null;
-        BigInteger cantidad = null;
+        int cantidad = 0;
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         BilletesFacade instance = (BilletesFacade)container.getContext().lookup("java:global/classes/BilletesFacade");
         instance.registroBilletes(billetes, cantidad);
@@ -67,12 +67,10 @@ public class BilletesFacadeTest {
     @PersistenceContext(unitName = "com.mycompany_PruebaTecnica_war_1.0-SNAPSHOTPU")
     private EntityManager em;
     
-    @org.junit.Test
+//    @org.junit.Test
     public void testRetirar() throws Exception {
-        
-        
         System.out.println("retirar");
-        BigInteger valor = new BigInteger("280000");
+        int valor = 280000;
 //        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         BilletesFacade instance = new BilletesFacade();//container.getContext().lookup("java:global/classes/BilletesFacade");
         BilletesFacade instanceSpy = spy(instance);
@@ -80,29 +78,37 @@ public class BilletesFacadeTest {
         Billetes b1 = new Billetes();
         Billetes b2 = new Billetes();
         Billetes b3 = new Billetes();
-        b1.setDenominacion(new BigInteger("50000"));
-        b1.setCantidad(new BigInteger("0"));
-        b2.setDenominacion(new BigInteger("20000"));
-        b2.setCantidad(new BigInteger("0"));
-        b3.setDenominacion(new BigInteger("10000"));
-        b3.setCantidad(new BigInteger("7"));
+        b1.setDenominacion(50000);
+        b1.setCantidad(3);
+        b2.setDenominacion(20000);
+        b2.setCantidad(6);
+        b3.setDenominacion(10000);
+        b3.setCantidad(10);
         listOfBilletes.add(b1);
         listOfBilletes.add(b2);
         listOfBilletes.add(b3);
-        
         doReturn(listOfBilletes).when(instanceSpy).findAll();
-        
-        
-        
+//        doReturn("test").when(instanceSpy).editar(new Billetes());
         
         ArrayList<Billetes> expResult = new ArrayList<>();
+        Billetes b4 = new Billetes();
+        Billetes b5 = new Billetes();
+        Billetes b6 = new Billetes();
+        b4.setDenominacion(50000);
+        b4.setCantidad(3);
+        b5.setDenominacion(20000);
+        b5.setCantidad(6);
+        b6.setDenominacion(10000);
+        b6.setCantidad(1);
+        expResult.add(b4);
+        expResult.add(b5);
+        expResult.add(b6);       
         
         ArrayList<Billetes> result = instanceSpy.retirar(valor);
-        
         assertEquals(expResult, result);
 //        container.close();
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+//        fail("The test case is a prototype.");
     }
 
     /**
@@ -111,13 +117,13 @@ public class BilletesFacadeTest {
 //    @org.junit.Test
     public void testDisminuir() throws Exception {
         System.out.println("disminuir");
-        BigInteger denominacion = null;
-        BigInteger cantidad = null;
-        BigInteger bdCantidad = null;
+        int denominacion = 0;
+        int cantidad = 0;
+        int bdCantidad = 0;
         EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
         BilletesFacade instance = (BilletesFacade)container.getContext().lookup("java:global/classes/BilletesFacade");
-        BigInteger expResult = null;
-        BigInteger result = instance.disminuir(denominacion, cantidad, bdCantidad);
+        int expResult = 0;
+        int result = instance.disminuir(denominacion, cantidad, bdCantidad);
         assertEquals(expResult, result);
         container.close();
         // TODO review the generated test code and remove the default call to fail.

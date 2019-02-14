@@ -22,10 +22,29 @@ public class BilletesController implements Serializable {
 
     private Billetes current;
     private DataModel items = null;
+
     @EJB
     private com.mycompany.pruebatecnica.BilletesFacade ejbFacade;
     private PaginationHelper pagination;
     private int selectedItemIndex;
+    private int ingreso = 0;
+    private int valor = 0;
+
+    public int getIngreso() {
+        return ingreso;
+    }
+
+    public void setIngreso(int ingreso) {
+        this.ingreso = ingreso;
+    }
+
+    public int getValor() {
+        return valor;
+    }
+
+    public void setValor(int valor) {
+        this.valor = valor;
+    }
 
     public BilletesController() {
     }
@@ -97,6 +116,24 @@ public class BilletesController implements Serializable {
     public String update() {
         try {
             getFacade().edit(current);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BilletesUpdated"));
+            return "View";
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            return null;
+        }
+    }
+
+    public String prepareRegistrar() {
+        current = (Billetes) getItems().getRowData();
+        selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
+        return "Registro";
+    }
+
+    public String registrar() {
+        try {
+//            current.setCantidad(current.getCantidad() + ingreso);
+            getFacade().registroBilletes(current, ingreso);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BilletesUpdated"));
             return "View";
         } catch (Exception e) {

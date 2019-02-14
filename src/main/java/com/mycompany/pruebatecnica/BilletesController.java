@@ -138,7 +138,7 @@ public class BilletesController implements Serializable {
     public String prepareRegistrar() {
         current = (Billetes) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "Registro";
+        return "RegistroList";
     }
 
     public String registrar() {
@@ -146,6 +146,17 @@ public class BilletesController implements Serializable {
             getFacade().registroBilletes(current, ingreso);
             JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BilletesUpdated"));
             return "View";
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+            return null;
+        }
+    }
+    
+    public String registrarList() {
+        try {
+            getFacade().registroBilletes(current, ingreso);
+            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BilletesUpdated"));
+            return "RegistroList";
         } catch (Exception e) {
             JsfUtil.addErrorMessage(e, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
             return null;

@@ -177,7 +177,6 @@ public class BilletesController implements Serializable {
             }else{
                 JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BilletesRetirados"));
             }
-//            JsfUtil.addSuccessMessage(ResourceBundle.getBundle("/Bundle").getString("BilletesRetirados"));
             recreateModel();
             return "ListRetiro";
         } catch (Exception e) {
@@ -202,7 +201,6 @@ public class BilletesController implements Serializable {
         if (selectedItemIndex >= 0) {
             return "View";
         } else {
-            // all items were removed - go back to list
             recreateModel();
             return "List";
         }

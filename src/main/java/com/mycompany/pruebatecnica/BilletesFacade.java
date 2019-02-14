@@ -6,6 +6,8 @@
 package com.mycompany.pruebatecnica;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -35,7 +37,8 @@ public class BilletesFacade extends AbstractFacade<Billetes> {
     }
 
     public ArrayList<Billetes> retirar(int valor) {
-        ArrayList<Billetes> inventario = (ArrayList) findAll();
+        List<Billetes> inventario = findAll();
+        Collections.sort(inventario);
         ArrayList<Billetes> retiro = new ArrayList();
         int cantidad;
         int resto = valor;
@@ -49,18 +52,35 @@ public class BilletesFacade extends AbstractFacade<Billetes> {
                 billetes.setDenominacion(b.getDenominacion());
                 faltante = disminuir(b.getDenominacion(), cantidad, b.getCantidad());
                 billetes.setCantidad(cantidad - faltante);
-                retiro.add(billetes);
-                b.setCantidad(b.getCantidad() - billetes.getCantidad());
+                if (billetes.getCantidad() != 0) {
+                    retiro.add(billetes);
+                }
                 resto += faltante * b.getDenominacion();
-                editar(b);
             }
+        }
+
+        if (resto != 0) {
+            return new ArrayList();
+        }else{
+            editar(retiro, inventario);
         }
         return retiro;
     }
-    
-    public String editar(Billetes b){
-        edit(b);
-        return "editar";
+
+    public String editar(ArrayList<Billetes> retiro, List<Billetes> inventario) {
+
+        if (!retiro.isEmpty()) {
+            for (Billetes bi : inventario) {
+                for (Billetes br : retiro) {
+                    if (bi.getDenominacion() == br.getDenominacion()) {
+                        bi.setCantidad(bi.getCantidad() - br.getCantidad());
+                        edit(bi);
+                    }
+                }
+            }
+            return "editar";
+        }
+        return "!editar";
     }
 
     //retorna el valor que haria falta para completar la cantidad solicitada

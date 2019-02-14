@@ -16,11 +16,11 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.EditBilletesLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{billetesController.selected.id}" title="#{bundle.EditBilletesTitle_id}" required="true" requiredMessage="#{bundle.EditBilletesRequiredMessage_id}"/>
+                    <h:inputText id="id" value="#{billetesController.selected.id}" title="#{bundle.EditBilletesTitle_id}" required="true" disabled="true" requiredMessage="#{bundle.EditBilletesRequiredMessage_id}"/>
                     <h:outputLabel value="#{bundle.EditBilletesLabel_denominacion}" for="denominacion" />
                     <h:inputText id="denominacion" value="#{billetesController.selected.denominacion}" title="#{bundle.EditBilletesTitle_denominacion}" required="true" requiredMessage="#{bundle.EditBilletesRequiredMessage_denominacion}"/>
                     <h:outputLabel value="#{bundle.EditBilletesLabel_cantidad}" for="cantidad" />
-                    <h:inputText id="cantidad" value="#{billetesController.selected.cantidad}" title="#{bundle.EditBilletesTitle_cantidad}" required="true" requiredMessage="#{bundle.EditBilletesRequiredMessage_cantidad}"/>
+                    <h:inputText id="cantidad" value="#{billetesController.selected.cantidad}" title="#{bundle.EditBilletesTitle_cantidad}" required="true" disabled="true" requiredMessage="#{bundle.EditBilletesRequiredMessage_cantidad}"/>
                 </h:panelGrid>
                 <h:commandLink action="#{billetesController.update}" value="#{bundle.EditBilletesSaveLink}"/>
                 <br />

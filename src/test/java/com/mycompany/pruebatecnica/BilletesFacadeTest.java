@@ -67,7 +67,7 @@ public class BilletesFacadeTest {
     @PersistenceContext(unitName = "com.mycompany_PruebaTecnica_war_1.0-SNAPSHOTPU")
     private EntityManager em;
     
-//    @org.junit.Test
+    @org.junit.Test
     public void testRetirar() throws Exception {
         System.out.println("retirar");
         int valor = 280000;
@@ -75,6 +75,7 @@ public class BilletesFacadeTest {
         BilletesFacade instance = new BilletesFacade();//container.getContext().lookup("java:global/classes/BilletesFacade");
         BilletesFacade instanceSpy = spy(instance);
         List<Billetes> listOfBilletes = new ArrayList<>();
+        ArrayList<Billetes> expResult = new ArrayList<>();
         Billetes b1 = new Billetes();
         Billetes b2 = new Billetes();
         Billetes b3 = new Billetes();
@@ -88,9 +89,8 @@ public class BilletesFacadeTest {
         listOfBilletes.add(b2);
         listOfBilletes.add(b3);
         doReturn(listOfBilletes).when(instanceSpy).findAll();
-//        doReturn("test").when(instanceSpy).editar(new Billetes());
+        doReturn("test").when(instanceSpy).editar(expResult,listOfBilletes);
         
-        ArrayList<Billetes> expResult = new ArrayList<>();
         Billetes b4 = new Billetes();
         Billetes b5 = new Billetes();
         Billetes b6 = new Billetes();

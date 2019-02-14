@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Billetes.findById", query = "SELECT b FROM Billetes b WHERE b.id = :id")
     , @NamedQuery(name = "Billetes.findByDenominacion", query = "SELECT b FROM Billetes b WHERE b.denominacion = :denominacion")
     , @NamedQuery(name = "Billetes.findByCantidad", query = "SELECT b FROM Billetes b WHERE b.cantidad = :cantidad")})
-public class Billetes implements Serializable {
+public class Billetes implements Serializable, Comparable<Billetes> {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -98,12 +98,23 @@ public class Billetes implements Serializable {
             return false;
         }
         Billetes other = (Billetes) object;
-        return !(this.cantidad!=other.cantidad || this.denominacion != other.denominacion);
+        return !(this.cantidad != other.cantidad || this.denominacion != other.denominacion);
     }
 
     @Override
     public String toString() {
         return "com.mycompany.pruebatecnica.Billetes[ id=" + id + " ]";
     }
-    
+
+    @Override
+    public int compareTo(Billetes o) {
+        if (denominacion < o.denominacion) {
+            return 1;
+        }
+        if (denominacion > o.denominacion) {
+            return -1;
+        }
+        return 0;
+    }
+
 }

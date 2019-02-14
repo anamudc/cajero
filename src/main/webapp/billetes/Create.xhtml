@@ -16,7 +16,7 @@
             <h:form>
                 <h:panelGrid columns="2">
                     <h:outputLabel value="#{bundle.CreateBilletesLabel_id}" for="id" />
-                    <h:inputText id="id" value="#{billetesController.selected.id}" title="#{bundle.CreateBilletesTitle_id}" required="true" requiredMessage="#{bundle.CreateBilletesRequiredMessage_id}"/>
+                    <h:inputText id="id" value="#{billetesController.selected.id}" title="#{bundle.CreateBilletesTitle_id}" required="false" requiredMessage="#{bundle.CreateBilletesRequiredMessage_id}"/>
                     <h:outputLabel value="#{bundle.CreateBilletesLabel_denominacion}" for="denominacion" />
                     <h:inputText id="denominacion" value="#{billetesController.selected.denominacion}" title="#{bundle.CreateBilletesTitle_denominacion}" required="true" requiredMessage="#{bundle.CreateBilletesRequiredMessage_denominacion}"/>
                     <h:outputLabel value="#{bundle.CreateBilletesLabel_cantidad}" for="cantidad" />

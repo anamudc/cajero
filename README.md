@@ -13,3 +13,13 @@ Sumlador de cajero para dos tipos de usuario
   - Pruebas unitarias JUnit
   - Servidor de aplicaciones Glassfish 4.1.0
   - IDE de desarrollo Netbeans
+
+### Base de Datos
+La tabla requerida para el proyecto se crea de la siguiente forma:
+```sh
+create table BILLETES (
+  id serial PRIMARY KEY,
+  DENOMINACION numeric NOT null unique,
+  CANTIDAD numeric NOT NULL
+ );
+```

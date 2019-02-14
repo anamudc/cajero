@@ -99,10 +99,8 @@ public class Billetes implements Serializable {
             return false;
         }
         Billetes other = (Billetes) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+        return !((this.cantidad == null && other.cantidad != null) || (this.cantidad != null && !this.cantidad.equals(other.cantidad))
+                && (this.denominacion == null && other.denominacion != null) || (this.denominacion != null && !this.denominacion.equals(other.denominacion)));
     }
 
     @Override

@@ -6,9 +6,10 @@ Sumlador de cajero para dos tipos de usuario
   - Realizar retiros a partir de un valor solicitado
   
 ### Proyecto
-  - Lenguaje JAVA
+  - Proyecto MAVEN
+  - Lenguaje JAVA - JDK 1.8
   - Framework Hibernate
   - Base de datos PostgreSQL
-  - administrador de dependencias MAVEN
+  - Pruebas unitarias JUnit
   - Servidor de aplicaciones Glassfish 4.1.0
   - IDE de desarrollo Netbeans
